@@ -4,8 +4,8 @@
 	// prihlasovaci udaje do databaze localhost
 	return array(
 		'database' => array(
-		'username' => 'root',
-		'password' => '12345eva',
+		'username' => 'a33456_2',
+		'password' => 'AEmCCq4G',
 		),
 	);
 
