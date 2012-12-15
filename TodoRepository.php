@@ -35,7 +35,10 @@ class TodoRepository
 			WHERE `id` = ?
 			');
 		$statement->execute(array($id));
+		if ($statement->rowCount() !== 1) {
+			throw new UnsuccessfulFinishException;		
 
+		}
 	}
 
 	// metoda odznaci ukol, bude opet jako nehotovy
@@ -49,4 +52,32 @@ class TodoRepository
 		$statement->execute(array($id));
 
 	}
+
+	// metoda vytvori nove todocko
+	public function create($content)
+	{
+		$statement = $this->connection->prepare('
+			INSERT INTO `todos` (`content`)
+			VALUES (?)
+			');
+		$statement->execute(array($content));
+		if ($statement->rowCount() !== 1) {
+			throw new UnsuccessfulCreateException;
+			
+		}
+	}
+
+	// metoda smaze jeden ukol
+	public function delete($id)
+	{
+		$statement = $this->connection->prepare('
+			DELETE FROM `todos`
+			WHERE `id` = ?
+			');
+		$statement->execute(array($id));
+
+	}
 }
+class UnsuccessfulFinishException extends Exception {}
+
+class UnsuccessfulCreateException extends Exception {}
